@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'data',
     'forecasting',
+    'service',
 
     'graphene_django'
 ]

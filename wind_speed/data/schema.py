@@ -3,8 +3,8 @@ from graphene import ObjectType
 from graphene import List, Int, String
 from graphene import Schema
 
-from data.models import Wind, GeneralData, LocationData, LocationMonthData
-from data.bigquery import DATA
+from .models import Wind, GeneralData, LocationData, LocationMonthData
+from .bigquery import DATA
 
 
 class WindType(DjangoObjectType):

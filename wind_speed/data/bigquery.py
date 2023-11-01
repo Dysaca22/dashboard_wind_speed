@@ -57,9 +57,9 @@ class Data():
 
         general_data = [
             GeneralData(
-                no_states = data['no_states'],
-                no_departments = data['no_departments'],
-                no_records = data['no_records']
+                noStates = data['no_states'],
+                noDepartments = data['no_departments'],
+                noRecords = data['no_records']
             ) for i, data in df_data.iterrows()
         ]
         return general_data
@@ -76,14 +76,14 @@ class Data():
             LocationData(
                 location = 'Departamento',
                 name = unicodedata.normalize('NFKD', data['department']).encode('ascii', 'ignore').decode('utf-8').capitalize(),
-                avg_speed = data['avg_speed'],
-                median_speed = data['median_speed'],
-                dev_speed = data['dev_speed'],
-                min_speed = data['min_speed'],
-                max_speed = data['max_speed'],
-                avg_direction = data['avg_direction'],
-                median_direction = data['median_direction'],
-                dev_direction = data['dev_direction']
+                avgSpeed = data['avg_speed'],
+                medianSpeed = data['median_speed'],
+                devSpeed = data['dev_speed'],
+                minSpeed = data['min_speed'],
+                maxSpeed = data['max_speed'],
+                avgDirection = data['avg_direction'],
+                medianDirection = data['median_direction'],
+                devDirection = data['dev_direction']
             ) for i, data in df_data.iterrows()
         ]
 
@@ -98,14 +98,14 @@ class Data():
             LocationData(
                 location = 'Municipio',
                 name = unicodedata.normalize('NFKD', data['state']).encode('ascii', 'ignore').decode('utf-8').capitalize(),
-                avg_speed = data['avg_speed'],
-                median_speed = data['median_speed'],
-                dev_speed = data['dev_speed'],
-                min_speed = data['min_speed'],
-                max_speed = data['max_speed'],
-                avg_direction = data['avg_direction'],
-                median_direction = data['median_direction'],
-                dev_direction = data['dev_direction']
+                avgSpeed = data['avg_speed'],
+                medianSpeed = data['median_speed'],
+                devSpeed = data['dev_speed'],
+                minSpeed = data['min_speed'],
+                maxSpeed = data['max_speed'],
+                avgDirection = data['avg_direction'],
+                medianDirection = data['median_direction'],
+                devDirection = data['dev_direction']
             ) for i, data in df_data.iterrows()
         ]
 
@@ -120,14 +120,14 @@ class Data():
             LocationData(
                 location = 'Region',
                 name = unicodedata.normalize('NFKD', data['region']).encode('ascii', 'ignore').decode('utf-8').capitalize(),
-                avg_speed = data['avg_speed'],
-                median_speed = data['median_speed'],
-                dev_speed = data['dev_speed'],
-                min_speed = data['min_speed'],
-                max_speed = data['max_speed'],
-                avg_direction = data['avg_direction'],
-                median_direction = data['median_direction'],
-                dev_direction = data['dev_direction']
+                avgSpeed = data['avg_speed'],
+                medianSpeed = data['median_speed'],
+                devSpeed = data['dev_speed'],
+                minSpeed = data['min_speed'],
+                maxSpeed = data['max_speed'],
+                avgDirection = data['avg_direction'],
+                medianDirection = data['median_direction'],
+                devDirection = data['dev_direction']
             ) for i, data in df_data.iterrows()
         ]
         return location_data
@@ -145,14 +145,14 @@ class Data():
                 location = 'Departamento',
                 name = unicodedata.normalize('NFKD', data['department']).encode('ascii', 'ignore').decode('utf-8').capitalize(),
                 month = data['month'],
-                avg_speed = data['avg_speed'],
-                median_speed = data['median_speed'],
-                dev_speed = data['dev_speed'],
-                min_speed = data['min_speed'],
-                max_speed = data['max_speed'],
-                avg_direction = data['avg_direction'],
-                median_direction = data['median_direction'],
-                dev_direction = data['dev_direction']
+                avgSpeed = data['avg_speed'],
+                medianSpeed = data['median_speed'],
+                devSpeed = data['dev_speed'],
+                minSpeed = data['min_speed'],
+                maxSpeed = data['max_speed'],
+                avgDirection = data['avg_direction'],
+                medianDirection = data['median_direction'],
+                devDirection = data['dev_direction']
             ) for i, data in df_data.iterrows()
         ]
 
@@ -168,14 +168,14 @@ class Data():
                 location = 'Municipio',
                 name = unicodedata.normalize('NFKD', data['state']).encode('ascii', 'ignore').decode('utf-8').capitalize(),
                 month = data['month'],
-                avg_speed = data['avg_speed'],
-                median_speed = data['median_speed'],
-                dev_speed = data['dev_speed'],
-                min_speed = data['min_speed'],
-                max_speed = data['max_speed'],
-                avg_direction = data['avg_direction'],
-                median_direction = data['median_direction'],
-                dev_direction = data['dev_direction']
+                avgSpeed = data['avg_speed'],
+                medianSpeed = data['median_speed'],
+                devSpeed = data['dev_speed'],
+                minSpeed = data['min_speed'],
+                maxSpeed = data['max_speed'],
+                avgDirection = data['avg_direction'],
+                medianDirection = data['median_direction'],
+                devDirection = data['dev_direction']
             ) for i, data in df_data.iterrows()
         ]
 
@@ -191,14 +191,14 @@ class Data():
                 location = 'Region',
                 name = unicodedata.normalize('NFKD', data['region']).encode('ascii', 'ignore').decode('utf-8').capitalize(),
                 month = data['month'],
-                avg_speed = data['avg_speed'],
-                median_speed = data['median_speed'],
-                dev_speed = data['dev_speed'],
-                min_speed = data['min_speed'],
-                max_speed = data['max_speed'],
-                avg_direction = data['avg_direction'],
-                median_direction = data['median_direction'],
-                dev_direction = data['dev_direction']
+                avgSpeed = data['avg_speed'],
+                medianSpeed = data['median_speed'],
+                devSpeed = data['dev_speed'],
+                minSpeed = data['min_speed'],
+                maxSpeed = data['max_speed'],
+                avgDirection = data['avg_direction'],
+                medianDirection = data['median_direction'],
+                devDirection = data['dev_direction']
             ) for i, data in df_data.iterrows()
         ]
         return location_month_data
