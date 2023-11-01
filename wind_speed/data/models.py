@@ -24,9 +24,9 @@ class Wind(models.Model):
 
     
 class GeneralData(models.Model):
-    no_states = models.IntegerField('states amount')
-    no_departments = models.IntegerField('department amount')
-    no_records = models.IntegerField('Records amount')
+    noStates = models.IntegerField('states amount')
+    noDepartments = models.IntegerField('department amount')
+    noRecords = models.IntegerField('Records amount')
 
     class Meta:
         verbose_name = 'general data'
@@ -38,14 +38,14 @@ class GeneralData(models.Model):
 class LocationData(models.Model):
     location = models.CharField('location', max_length=20)
     name = models.CharField('department', max_length=100)
-    avg_speed = models.FloatField('average speed')
-    median_speed = models.FloatField('median speed')
-    dev_speed = models.FloatField('standard deviation speed')
-    min_speed = models.FloatField('minimum speed')
-    max_speed = models.FloatField('maximum speed')
-    avg_direction = models.FloatField('average direction')
-    median_direction = models.FloatField('median direction')
-    dev_direction = models.FloatField('standard deviation direction')
+    avgSpeed = models.FloatField('average speed')
+    medianSpeed = models.FloatField('median speed')
+    devSpeed = models.FloatField('standard deviation speed')
+    minSpeed = models.FloatField('minimum speed')
+    maxSpeed = models.FloatField('maximum speed')
+    avgDirection = models.FloatField('average direction')
+    medianDirection = models.FloatField('median direction')
+    devDirection = models.FloatField('standard deviation direction')
 
     class Meta:
         verbose_name = 'location data'
@@ -60,14 +60,14 @@ class LocationMonthData(models.Model):
     location = models.CharField('location', max_length=20)
     name = models.CharField('department', max_length=100)
     month = models.IntegerField('month', validators=[MaxValueValidator(12), MinValueValidator(1)])
-    avg_speed = models.FloatField('average speed')
-    median_speed = models.FloatField('median speed')
-    dev_speed = models.FloatField('standard deviation speed')
-    min_speed = models.FloatField('minimum speed')
-    max_speed = models.FloatField('maximum speed')
-    avg_direction = models.FloatField('average direction')
-    median_direction = models.FloatField('median direction')
-    dev_direction = models.FloatField('standard deviation direction')
+    avgSpeed = models.FloatField('average speed')
+    medianSpeed = models.FloatField('median speed')
+    devSpeed = models.FloatField('standard deviation speed')
+    minSpeed = models.FloatField('minimum speed')
+    maxSpeed = models.FloatField('maximum speed')
+    avgDirection = models.FloatField('average direction')
+    medianDirection = models.FloatField('median direction')
+    devDirection = models.FloatField('standard deviation direction')
 
     class Meta:
         verbose_name = 'location month data'
