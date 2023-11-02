@@ -1,5 +1,4 @@
 from django.views.generic import TemplateView
-from windrose import WindroseAxes
 import plotly.express as px
 import pandas as pd
 
@@ -44,11 +43,12 @@ class LocationDataView(TemplateView):
             }
         """
         result_ = schema.execute(query).data['locationData']
-
-        df = pd.DataFrame(result_)        
-        df['medianDirection'] = [*map(lambda x: self.DIRECTIONS[(int((x/22.5) + .5) % 16)], df['medianDirection'])]
-        print(df)
-        fig = px.bar_polar(df, r="medianSpeed", theta="medianDirection", template="plotly_dark", color_discrete_sequence= px.colors.sequential.Plasma_r)
+        result_ = [*map(lambda x: {'name': x['name'], 'medianSpeed': x['medianSpeed'], 'medianDirection': self.DIRECTIONS[(int((x['medianDirection']/22.5) + .5) % 16)]}, result_)]
+        result_ += [{'name': '', 'medianSpeed': 0, 'medianDirection': d} for d in self.DIRECTIONS]
+        result_ = [tuple for x in self.DIRECTIONS for tuple in result_ if tuple['medianDirection'] == x]
+        df = pd.DataFrame(result_)
+        df.rename(columns={'name': 'Nombre', 'medianSpeed': 'Velocidad', 'medianDirection': 'Dirección'}, inplace=True)        
+        fig = px.bar_polar(df, r='Velocidad', theta='Dirección', color='Nombre', color_discrete_sequence=px.colors.sequential.Plasma_r)
         fig_html = fig.to_html()
 
         kwargs.update({

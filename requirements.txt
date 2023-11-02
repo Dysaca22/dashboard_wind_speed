@@ -7,6 +7,5 @@ google-cloud-bigquery
 
 pandas
 db-dtypes
-windrose
 plotly
 pandas
