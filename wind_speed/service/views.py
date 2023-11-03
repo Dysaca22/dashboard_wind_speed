@@ -3,6 +3,7 @@ import plotly.express as px
 import pandas as pd
 
 from data.schema import schema
+from .utils import read_json
 
 
 class GeneralDataView(TemplateView):
@@ -32,6 +33,39 @@ class LocationDataView(TemplateView):
     template_name = 'service/location_data.html'
     DIRECTIONS = ["N","NNE","NE","ENE","E","ESE", "SE", "SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"]
 
+    def generate_rose_diagram(self, data):
+        data = [*map(lambda x: {'name': x['name'], 'medianSpeed': x['medianSpeed'], 'medianDirection': self.DIRECTIONS[(int((x['medianDirection']/22.5) + .5) % 16)]}, data)]
+        data += [{'name': '', 'medianSpeed': 0, 'medianDirection': d} for d in self.DIRECTIONS]
+        data = [tuple for x in self.DIRECTIONS for tuple in data if tuple['medianDirection'] == x]
+        df = pd.DataFrame(data)
+        df.rename(columns={'name': 'Nombre', 'medianSpeed': 'Velocidad', 'medianDirection': 'Dirección'}, inplace=True)        
+        fig = px.bar_polar(df, r='Velocidad', theta='Dirección', color='Nombre', color_discrete_sequence=px.colors.sequential.Plasma_r)
+        return fig.to_html()
+
+    def generate_map_graph(self, data):
+        json_departments_colombia = read_json('https://gist.githubusercontent.com/john-guerra/43c7656821069d00dcbc/raw/be6a6e239cd5b5b803c6e7c2ec405b793a9064dd/Colombia.geo.json')
+        [*filter(lambda x: 'BOGOTA' in x['properties']['NOMBRE_DPT'], json_departments_colombia['features'])][0]['properties']['NOMBRE_DPT'] = 'BOGOTA'
+        [*filter(lambda x: 'NARIÑO' in x['properties']['NOMBRE_DPT'], json_departments_colombia['features'])][0]['properties']['NOMBRE_DPT'] = 'NARINO'
+        df = pd.DataFrame(data)
+        df['name'] = df['name'].str.upper()
+        df.rename(columns={'name': 'Nombre'}, inplace=True)
+        fig = px.choropleth_mapbox(
+            df, 
+            geojson = json_departments_colombia, 
+            locations = 'Nombre',
+            featureidkey='properties.NOMBRE_DPT',
+            color = 'medianSpeed',
+            color_continuous_scale = "Viridis",
+            range_color = (df['medianSpeed'].min(), df['medianSpeed'].max()),
+            mapbox_style = "white-bg",
+            zoom = 4,
+            center = {"lat": 3.5495372146017536, "lon": -73.04261938707367},
+            opacity=  0.5,
+            labels = {'medianSpeed': 'Velocidad'}
+        )
+        return fig.to_html()
+
+
     def get_context_data(self, **kwargs):
         query = """
             {
@@ -43,15 +77,11 @@ class LocationDataView(TemplateView):
             }
         """
         result_ = schema.execute(query).data['locationData']
-        result_ = [*map(lambda x: {'name': x['name'], 'medianSpeed': x['medianSpeed'], 'medianDirection': self.DIRECTIONS[(int((x['medianDirection']/22.5) + .5) % 16)]}, result_)]
-        result_ += [{'name': '', 'medianSpeed': 0, 'medianDirection': d} for d in self.DIRECTIONS]
-        result_ = [tuple for x in self.DIRECTIONS for tuple in result_ if tuple['medianDirection'] == x]
-        df = pd.DataFrame(result_)
-        df.rename(columns={'name': 'Nombre', 'medianSpeed': 'Velocidad', 'medianDirection': 'Dirección'}, inplace=True)        
-        fig = px.bar_polar(df, r='Velocidad', theta='Dirección', color='Nombre', color_discrete_sequence=px.colors.sequential.Plasma_r)
-        fig_html = fig.to_html()
+        rose_diagram = self.generate_rose_diagram(result_)
+        map_diagram_speed = self.generate_map_graph(result_)
 
         kwargs.update({
-            'graph': fig_html,
+            'rose_graph': rose_diagram,
+            'map_graph': map_diagram_speed,
         })
         return super().get_context_data(**kwargs)
