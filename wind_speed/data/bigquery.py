@@ -1,7 +1,7 @@
 from google.oauth2 import service_account
 from google.cloud import bigquery
 from django.conf import settings
-import os
+import os, json
 
 from .models import Wind, GeneralData, LocationData, LocationMonthData, GeoData
 
@@ -123,9 +123,9 @@ class Data():
     def set_geometry_data(self):
         geometry_data = []
         
-        for loc in ['department', 'region']:
+        for loc in ['department', 'state', 'region']:
             sql = """
-                SELECT * EXCEPT(GEOMETRY), ST_ASGEOJSON(GEOMETRY) AS GEOMETRY
+                SELECT *
                 FROM `{}.geo_{}s`
             """.format(self.DATASET, loc)
             df_data = self.client.query(sql).result().to_dataframe()
@@ -134,10 +134,10 @@ class Data():
                 GeoData(
                     location = loc,
                     name = data[loc.upper()],
-                    area = data['AREA'],
-                    perimeter = data['PERIMETER'],
-                    hectares = data['HECTARES'],
-                    geometry = data['GEOMETRY']
+                    area = data['AREA'] if 'AREA' in data else '',
+                    perimeter = data['PERIMETER'] if 'PERIMETER' in data else '',
+                    hectares = data['HECTARES'] if 'HECTARES' in data else '',
+                    geometry = json.dumps(data['GEOMETRY'])
                 ) for i, data in df_data.iterrows()
             ]
         return geometry_data

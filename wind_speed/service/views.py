@@ -48,10 +48,10 @@ class LocationDataView(TemplateView):
             {{
                 geoData(location: "{}"){{
                     name
+                    geometry
                     area
                     perimeter
                     hectares
-                    geometry
                 }}
             }}
         """.format(location)

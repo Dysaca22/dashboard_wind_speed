@@ -82,9 +82,9 @@ class LocationMonthData(models.Model):
 class GeoData(models.Model):
     location = models.CharField('location', max_length=20)
     name = models.CharField('name', max_length=100)
-    area = models.FloatField('area')
-    perimeter = models.FloatField('perimeter')
-    hectares = models.FloatField('hectares')
+    area = models.FloatField('area', blank=True)
+    perimeter = models.FloatField('perimeter', blank=True)
+    hectares = models.FloatField('hectares', blank=True)
     geometry = models.JSONField('geometry')
 
     class Meta:

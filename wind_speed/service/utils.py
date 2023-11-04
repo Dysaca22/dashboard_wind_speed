@@ -7,7 +7,7 @@ import json
 def df_to_geojson(df):
     df = DataFrame(df)
     geojson = {'type': 'FeatureCollection', 'features': []}
-    
+
     for i, element in df.iterrows():
         feature = {'type': 'Feature', 
                    'properties': {}}
@@ -19,9 +19,9 @@ def df_to_geojson(df):
             feature['properties']['name'] = 'Bogota d.c'
         else:
             feature['properties']['name'] = element['name']
-        feature['properties']['area'] = element['area']
-        feature['properties']['perimeter'] = element['perimeter']
-        feature['properties']['hectares'] = element['hectares']
+        #feature['properties']['area'] = element['area']
+        #feature['properties']['perimeter'] = element['perimeter']
+        #feature['properties']['hectares'] = element['hectares']
         geojson['features'].append(feature)
     
     return geojson
