@@ -9,3 +9,6 @@ pandas
 db-dtypes
 plotly
 pandas
+
+dbt-core
+dbt-bigquery
