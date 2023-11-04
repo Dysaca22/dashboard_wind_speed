@@ -30,17 +30,24 @@ WITH temp1 AS (
     END AS state,
     * EXCEPT(speed, date, hour, code, department, state)
   FROM temp2
+), temp4 AS (
+  SELECT 
+    speed, date, hour, code,
+    CASE
+      WHEN UPPER(department) IN ('AMAZONAS', 'CAQUETA', 'GUAINIA', 'GUAVIARE', 'PUTUMAYO', 'VAUPES') THEN 'Amazonica'
+      WHEN UPPER(department) IN ('ANTIOQUIA', 'BOGOTA D.C', 'SANTAFE DE BOGOTA D.C', 'BOYACA', 'CALDAS', 'CUNDINAMARCA', 'HUILA', 'NORTE DE SANTANDER', 'QUINDIO', 'RISARALDA', 'SANTANDER', 'TOLIMA') THEN 'Andina'
+      WHEN UPPER(department) IN ('ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA', 'ATLANTICO', 'BOLIVAR', 'CESAR', 'CORDOBA', 'LA GUAJIRA', 'MAGDALENA', 'SUCRE') THEN 'Caribe'
+      WHEN UPPER(department) IN ('CAUCA', 'CHOCO', 'NARINO', 'VALLE DEL CAUCA') THEN 'Pacifico'
+      WHEN UPPER(department) IN ('ARAUCA', 'CASANARE', 'META', 'VICHADA') THEN 'Orinoquia'
+      ELSE NULL -- Casos no mapeados
+    END AS region,
+    * EXCEPT(speed, date, hour, code)
+  FROM temp3
 )
 
-SELECT 
-  speed, date, hour, code,
-  CASE
-    WHEN UPPER(department) IN ('AMAZONAS', 'CAQUETA', 'GUAINIA', 'GUAVIARE', 'PUTUMAYO', 'VAUPES') THEN 'Amazonica'
-    WHEN UPPER(department) IN ('ANTIOQUIA', 'BOGOTA D.C', 'SANTAFE DE BOGOTA D.C', 'BOYACA', 'CALDAS', 'CUNDINAMARCA', 'HUILA', 'NORTE DE SANTANDER', 'QUINDIO', 'RISARALDA', 'SANTANDER', 'TOLIMA') THEN 'Andina'
-    WHEN UPPER(department) IN ('ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA', 'ATLANTICO', 'BOLIVAR', 'CESAR', 'CORDOBA', 'LA GUAJIRA', 'MAGDALENA', 'SUCRE') THEN 'Caribe'
-    WHEN UPPER(department) IN ('CAUCA', 'CHOCO', 'NARINO', 'VALLE DEL CAUCA') THEN 'Pacifico'
-    WHEN UPPER(department) IN ('ARAUCA', 'CASANARE', 'META', 'VICHADA') THEN 'Orinoquia'
-    ELSE NULL -- Casos no mapeados
-  END AS region,
-  * EXCEPT(speed, date, hour, code)
-FROM temp3
+SELECT DISTINCT
+  AVG(speed) OVER (PARTITION BY date, hour, code) AS speed,
+  DATETIME(date, TIME(hour, 0, 0)) AS date, 
+  * EXCEPT(speed, date, hour)
+FROM temp4
+ORDER BY date, department

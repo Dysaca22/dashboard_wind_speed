@@ -4,15 +4,14 @@ from django.db import models
 
 class Wind(models.Model):
     date = models.DateTimeField('date')
-    hour = models.IntegerField('hour', validators=[MaxValueValidator(23), MinValueValidator(0)])
-    minute = models.IntegerField('minute', validators=[MaxValueValidator(59), MinValueValidator(0)])
-    speed = models.FloatField('speed')
-    direction = models.IntegerField('angle', validators=[MaxValueValidator(360), MinValueValidator(0)])
+    code = models.CharField('code', max_length=100)
+    region = models.CharField('region', max_length=100)
     department = models.CharField('department', max_length=100)
     state = models.CharField('state', max_length=100)
-    region = models.CharField('region', max_length=100)
     latitude = models.FloatField('latitude')
     longitude = models.FloatField('longitude')
+    speed = models.FloatField('speed')
+    direction = models.IntegerField('angle', validators=[MaxValueValidator(360), MinValueValidator(0)])
 
     class Meta:
         verbose_name = 'wind'
@@ -26,18 +25,20 @@ class Wind(models.Model):
 class GeneralData(models.Model):
     noStates = models.IntegerField('states amount')
     noDepartments = models.IntegerField('department amount')
-    noRecords = models.IntegerField('Records amount')
+    noRegions = models.IntegerField('regions amount')
+    noStations = models.IntegerField('stations amount')
+    noRecords = models.IntegerField('records amount')
 
     class Meta:
         verbose_name = 'general data'
 
     def __str__(self):
-        return self.pk
+        return 'General data'
 
 
 class LocationData(models.Model):
     location = models.CharField('location', max_length=20)
-    name = models.CharField('department', max_length=100)
+    name = models.CharField('name', max_length=100)
     avgSpeed = models.FloatField('average speed')
     medianSpeed = models.FloatField('median speed')
     devSpeed = models.FloatField('standard deviation speed')
@@ -58,7 +59,7 @@ class LocationData(models.Model):
     
 class LocationMonthData(models.Model):
     location = models.CharField('location', max_length=20)
-    name = models.CharField('department', max_length=100)
+    name = models.CharField('name', max_length=100)
     month = models.IntegerField('month', validators=[MaxValueValidator(12), MinValueValidator(1)])
     avgSpeed = models.FloatField('average speed')
     medianSpeed = models.FloatField('median speed')
@@ -76,3 +77,20 @@ class LocationMonthData(models.Model):
 
     def __str__(self):
         return f'{dict(self.LOCATIONS_ENUM)[self.location]} - {self.name} - {self.month}'
+
+
+class GeoData(models.Model):
+    location = models.CharField('location', max_length=20)
+    name = models.CharField('name', max_length=100)
+    area = models.FloatField('area')
+    perimeter = models.FloatField('perimeter')
+    hectares = models.FloatField('hectares')
+    geometry = models.JSONField('geometry')
+
+    class Meta:
+        verbose_name = 'location month data'
+        verbose_name_plural = 'locations month data'
+        ordering = ['name']
+
+    def __str__(self):
+        return f'{dict(self.LOCATIONS_ENUM)[self.location]} - {self.name}'

@@ -3,9 +3,9 @@ from django import forms
 
 class LocationForm(forms.Form):
     LocationsEnum = (
-        ("Departamento", "Departamento"),
-        ("Municipio", "Municipio"),
-        ("Region", "Región"),
+        ("department", "Departamento"),
+        ("state", "Municipio"),
+        ("region", "Región"),
     )
 
     location = forms.ChoiceField(

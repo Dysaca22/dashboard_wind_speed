@@ -1,8 +1,8 @@
 WITH regional_data AS (
   SELECT 
-    DATETIME(date, TIME(hour, 0, 0)) AS date, 
+    date, 
     region,
-    AVG(direction) OVER (PARTITION BY date, hour, region) AS avg_direction
+    AVG(direction) OVER (PARTITION BY date, region) AS avg_direction
   FROM {{ ref('all_data_ready') }}
 )
 

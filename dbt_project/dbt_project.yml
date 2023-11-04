@@ -29,8 +29,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   dbt_project:
     cleansing:
-      materialized: ephemeral
+      +materialized: ephemeral
     cleansing:
-      materialized: view
+      +materialized: view
     transform:
-      materialized: table
+      +materialized: table
