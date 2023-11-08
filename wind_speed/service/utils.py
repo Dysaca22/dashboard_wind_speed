@@ -10,7 +10,7 @@ def generate_date_speed_graph(data):
     df['date'] = to_datetime(df['date'])
     df.rename(columns={'date': 'Fecha', 'speed': 'Velocidad'}, inplace=True)
     fig = line(df, x='Fecha', y='Velocidad')
-    plotly_url = plot(fig, filename='./static/bar.html', auto_open=False)
+    plotly_url = plot(fig, filename='./static/graphs/bar.html', auto_open=False)
 
 def df_to_geojson(df):
     df = DataFrame(df)
