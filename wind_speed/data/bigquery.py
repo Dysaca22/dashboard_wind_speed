@@ -3,7 +3,7 @@ from google.cloud import bigquery
 from django.conf import settings
 import os, json
 
-from .models import Wind, GeneralData, LocationData, LocationMonthData, GeoData
+from .models import HourSpeed, GeneralData, LocationData, LocationMonthData, GeoData
 
 
 class Data():
@@ -18,27 +18,27 @@ class Data():
             project = self.PROJECT
         )
 
-        self.DATA_DATES = self.get_data_dates()
+        self.HOUR_SPEED = self.get_hour_speed()
         self.GENERAL_DATA = self.set_general_data()
         self.LOCATION_DATA = self.set_location_data()
         self.LOCATION_MONTH_DATA = self.set_location_month_data()
         self.GEOMETRY_DATA = self.set_geometry_data()
 
-    def get_data_dates(self):
+    def get_hour_speed(self):
         sql = """
             SELECT *
-            FROM `{}.data_dates`
-            WHERE EXTRACT(YEAR FROM date) = 2023
+            FROM `{}.hour_speed`
         """.format(self.DATASET)
         df_data = self.client.query(sql).result().to_dataframe()
 
-        data_dates = [
-            Wind(
-                date = data['date'],
-                speed = data['speed']
+        hour_speed = [
+            HourSpeed(
+                hour = data['hour'],
+                avgSpeed = data['avgSpeed'],
+                medSpeed = data['medSpeed']
             ) for i, data in df_data.iterrows()
         ]
-        return data_dates
+        return hour_speed
 
     def set_general_data(self):
         sql = """

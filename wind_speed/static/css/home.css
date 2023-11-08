@@ -34,10 +34,9 @@ header {
 nav {
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: stretch;
     gap: 15px;
-
     padding: 20px 10px;
 }
 
@@ -80,7 +79,20 @@ section {
     grid-template-columns: 1fr;
     grid-template-rows: 100px 500px;
     gap: 30px;
+    overflow-y: scroll;
 }
+
+::-webkit-scrollbar{
+    background: transparent;
+    width: 5px;
+}
+::-webkit-scrollbar-thumb{
+    background: rgba(0,0,0,0.4);
+    border-radius: 5px;
+}
+::-webkit-resizer,
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-corner { display: none; }
 
 .content-bar {
     display: flex;
@@ -124,16 +136,20 @@ section {
 }
 
 article {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 9fr;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
     gap: 30px;
 }
 
-.initial-info {
-    grid-column: 1/6;
+.row {
+    width: 100%;
+    height: auto;
     display: flex;
     flex-flow: row wrap;
+    justify-content: space-between;
     gap: 30px;
 }
 
@@ -152,17 +168,20 @@ article {
 }
 
 .graph-2023 {
-    grid-column: 1/4;
-    width: 100%;
+    min-width: 400px;
+    min-height: 400px;
+    height: 100%;
+    flex: 3 1 0px;
     background-color: white;
     border-radius: 10px;
     padding: 2px;
 }
 
 .turbine-3D {
-    grid-column: 4/ span 2;
-    height: 500px;
-    width: 100%;
+    min-width: 300px;
+    min-height: 400px;
+    height: 100%;
+    flex: 2 1 0px;
 }
 
 img {

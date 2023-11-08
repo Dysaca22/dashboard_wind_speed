@@ -3,13 +3,13 @@ from graphene import ObjectType
 from graphene import List, Int, String
 from graphene import Schema
 
-from .models import Wind, GeneralData, LocationData, LocationMonthData, GeoData
+from .models import HourSpeed, GeneralData, LocationData, LocationMonthData, GeoData
 from .bigquery import DATA
 
 
-class WindType(DjangoObjectType):
+class HourSpeedType(DjangoObjectType):
     class Meta:
-        model = Wind
+        model = HourSpeed
         fields = '__all__'
 
 
@@ -38,14 +38,14 @@ class GeoDataType(DjangoObjectType):
 
 
 class Query(ObjectType):
-    allWind = List(WindType)
+    hourSpeed = List(HourSpeedType)
     generalData = List(GeneralDataType)
     locationData = List(LocationDataType, location=String(), name=String())
     locationMonthData = List(LocationMonthDataType, location=String(), name=String(), month=Int())
     geoData = List(GeoDataType, location=String())
     
-    def resolve_allWind(self, info):
-        data = DATA.DATA_DATES
+    def resolve_hourSpeed(self, info):
+        data = DATA.HOUR_SPEED
         return data
 
     def resolve_generalData(self, info):

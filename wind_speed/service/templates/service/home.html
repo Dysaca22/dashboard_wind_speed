@@ -26,6 +26,7 @@
                     localidad</button></a>
             <a href="{% url 'service:location-data' %}"><button><ion-icon name="calendar-outline"></ion-icon>Por
                     localidad y mes</button></a>
+            <a href="https://github.com/Dysaca22/dashboard_wind_speed" target="_blank"><button><ion-icon name="logo-github"></ion-icon>Github</button></a>
         </nav>
     </header>
     <div></div>
@@ -38,21 +39,32 @@
             <div class="logo"><img src="{% static 'img/Logo uninorte.png' %}" alt="Logo Uninorte"></div>
         </div>
         <article>
-            <div class="initial-info">
+            <div class="row">
                 <div class="card-info records"><p>Registros</p>{{ noRecords }}</div>
                 <div class="card-info regions"><p>Regiones</p>{{ noRegions }}</div>
                 <div class="card-info departments"><p>Departamentos</p>{{ noDepartments }}</div>
                 <div class="card-info states"><p>Municipios</p>{{ noStates }}</div>
                 <div class="card-info stations"><p>Estaciones</p>{{ noStations }}</div>
             </div>
-            <div class="graph-2023">
-                <iframe width="100%" height="100%" frameborder="0" seamless="seamless" scrolling="no" src="{% static 'graphs/bar.html' %}"></iframe>
+            <div class="row">
+                <div class="graph-2023">
+                    <iframe width="100%" height="100%" frameborder="0" seamless="seamless" scrolling="no" src="{% static hour_speed_url %}"></iframe>
+                </div>
+                <div class="turbine-3D">
+                    <model-viewer style="height: 100%; width: 100%;" camera-controls auto-rotate
+                        camera-orbit="-45deg 55deg 2m" src="{% static 'wind_turbine/scene.gltf' %}" alt="Wind turbine"
+                        shadow-intensity="1" ios-src="{% static 'wind_turbine/scene.bin' %}"
+                        id="modelViewer"></model-viewer>
+                </div>
             </div>
-            <div class="turbine-3D">
-                <model-viewer style="height: 100%; width: 100%;" camera-controls auto-rotate
-                    camera-orbit="-45deg 50deg 1m" src="{% static 'wind_turbine/scene.gltf' %}" alt="Wind turbine"
-                    shadow-intensity="1" ios-src="{% static 'wind_turbine/scene.bin' %}"
-                    id="modelViewer"></model-viewer>
+            <div class="row">
+                <p style="font-size: 14px;">
+                    Información obtenida de: <br>
+                    <a href="https://www.datos.gov.co/Ambiente-y-Desarrollo-Sostenible/Velocidad-Viento/sgfv-3yp8" target="_blank">Velocidad Viento</a> <br>
+                    <a href="https://www.datos.gov.co/Ambiente-y-Desarrollo-Sostenible/Direcci-n-Viento/kiw7-v9ta" target="_blank">Dirección Viento</a> <br>
+                    <a href="https://gist.github.com/john-guerra/43c7656821069d00dcbc" target="_blank">Geojson departamentos Colombia</a> <br>
+                    <a href="https://www.kaggle.com/code/alfredomaussa/colombia-municipios/input?scriptVersionId=39794627" target="_blank">Geojson municipios Colombia</a>
+                </p>
             </div>
         </article>
     </section>

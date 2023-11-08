@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from django.urls import reverse
 
 from data.schema import schema
-from .utils import generate_rose_diagram, generate_map_graph, generate_date_speed_graph
+from .utils import generate_hour_speed_graph, generate_rose_diagram, generate_map_graph
 from .forms import LocationForm
 
 
@@ -24,21 +24,23 @@ class GeneralDataView(TemplateView):
         result_ = schema.execute(query).data['generalData'][0]
         query = """
             {
-                allWind{
-                    date
-                    speed
+                hourSpeed{
+                    hour
+                    avgSpeed
+                    medSpeed
                 }
             }
         """
-        allWindResult_ = schema.execute(query).data['allWind']
-        generate_date_speed_graph(allWindResult_)
+        hourSpeedResult_ = schema.execute(query).data['hourSpeed']
+        hour_speed_url = generate_hour_speed_graph(hourSpeedResult_, 'hour_speed')
         
         kwargs.update({
             'noStates': result_['noStates'],
             'noDepartments': result_['noDepartments'],
             'noRegions': result_['noRegions'],
             'noStations': result_['noStations'],
-            'noRecords': result_['noRecords']
+            'noRecords': result_['noRecords'],
+            'hour_speed_url': hour_speed_url
         })
         return super().get_context_data(**kwargs)
 
@@ -71,12 +73,12 @@ class LocationDataView(TemplateView):
         """.format(location)
         geoResult_ = schema.execute(query).data['geoData']
 
-        rose_diagram = generate_rose_diagram(self.DIRECTIONS, result_)
-        map_diagram_speed = generate_map_graph(geoResult_, result_)
+        rose_diagram = generate_rose_diagram(self.DIRECTIONS, result_, f'rose_direction_{location}')
+        map_diagram_speed = generate_map_graph(geoResult_, result_, f'colombian_map_{location}')
 
         kwargs.update({
-            'rose_graph': rose_diagram,
-            'map_graph': map_diagram_speed,
+            'rose_graph_url': rose_diagram,
+            'map_graph_url': map_diagram_speed
         })
         return super().get_context_data(**kwargs)
 

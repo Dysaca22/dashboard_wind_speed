@@ -2,17 +2,18 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
-class Wind(models.Model):
-    date = models.DateTimeField('date')
-    speed = models.FloatField('speed')
+class HourSpeed(models.Model):
+    hour = models.IntegerField('date')
+    avgSpeed = models.FloatField('average speed')
+    medSpeed = models.FloatField('median speed')
 
     class Meta:
-        verbose_name = 'wind'
-        verbose_name_plural = 'winds'
-        ordering = ['date']
+        verbose_name = 'hour speed'
+        verbose_name_plural = 'hours speed'
+        ordering = ['hour']
 
     def __str__(self):
-        return f'Wind in {self.date}'
+        return f'Wind speed in {self.hour}'
 
     
 class GeneralData(models.Model):

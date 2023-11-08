@@ -1,6 +1,8 @@
+{% load static %}
+
 <form action="{% url 'service:location-data' %}" method="get">
     {{ form }}
     <input type="submit" value="Submit">
 </form>
-{{ rose_graph|safe }}
-{{ map_graph|safe }}
+<iframe width="100%" height="100%" frameborder="0" seamless="seamless" scrolling="no" src="{% static rose_graph_url %}"></iframe>
+<iframe width="100%" height="100%" frameborder="0" seamless="seamless" scrolling="no" src="{% static map_graph_url %}"></iframe>

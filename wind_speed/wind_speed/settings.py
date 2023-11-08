@@ -136,3 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 GRAPHENE = {
     "SCHEMA": "core.schema.schema"
 }
+
+GRAPHS = './static/graphs'
+for file in os.listdir(GRAPHS):
+    os.remove(os.path.join(GRAPHS, file))
