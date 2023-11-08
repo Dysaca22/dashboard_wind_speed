@@ -18,34 +18,27 @@ class Data():
             project = self.PROJECT
         )
 
+        self.DATA_DATES = self.get_data_dates()
         self.GENERAL_DATA = self.set_general_data()
         self.LOCATION_DATA = self.set_location_data()
         self.LOCATION_MONTH_DATA = self.set_location_month_data()
         self.GEOMETRY_DATA = self.set_geometry_data()
 
-    def get_data_2023(self, offset, limit):
+    def get_data_dates(self):
         sql = """
             SELECT *
-            FROM `{}.data_2023`
-            ORDER BY date DESC, department, speed
-            LIMIT {} OFFSET {}
-        """.format(self.DATASET, limit, offset)
+            FROM `{}.data_dates`
+            WHERE EXTRACT(YEAR FROM date) = 2023
+        """.format(self.DATASET)
         df_data = self.client.query(sql).result().to_dataframe()
 
-        data_2023 = [
+        data_dates = [
             Wind(
                 date = data['date'],
-                code = data['code'],
-                region = data['region'],
-                department = data['department'],
-                state = data['state'],
-                latitude = data['latitude'],
-                longitude = data['longitude'],
-                speed = data['speed'],
-                direction = data['direction'],
+                speed = data['speed']
             ) for i, data in df_data.iterrows()
         ]
-        return data_2023
+        return data_dates
 
     def set_general_data(self):
         sql = """
@@ -134,10 +127,10 @@ class Data():
                 GeoData(
                     location = loc,
                     name = data[loc.upper()],
-                    area = data['AREA'] if 'AREA' in data else '',
-                    perimeter = data['PERIMETER'] if 'PERIMETER' in data else '',
-                    hectares = data['HECTARES'] if 'HECTARES' in data else '',
-                    geometry = json.dumps(data['GEOMETRY'])
+                    area = data['AREA'] if 'AREA' in data else None,
+                    perimeter = data['PERIMETER'] if 'PERIMETER' in data else None,
+                    hectares = data['HECTARES'] if 'HECTARES' in data else None,
+                    geometry = json.loads(data['GEOMETRY'])
                 ) for i, data in df_data.iterrows()
             ]
         return geometry_data

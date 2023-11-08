@@ -4,14 +4,7 @@ from django.db import models
 
 class Wind(models.Model):
     date = models.DateTimeField('date')
-    code = models.CharField('code', max_length=100)
-    region = models.CharField('region', max_length=100)
-    department = models.CharField('department', max_length=100)
-    state = models.CharField('state', max_length=100)
-    latitude = models.FloatField('latitude')
-    longitude = models.FloatField('longitude')
     speed = models.FloatField('speed')
-    direction = models.IntegerField('angle', validators=[MaxValueValidator(360), MinValueValidator(0)])
 
     class Meta:
         verbose_name = 'wind'
@@ -54,7 +47,7 @@ class LocationData(models.Model):
         ordering = ['name']
 
     def __str__(self):
-        return f'{dict(self.LOCATIONS_ENUM)[self.location]} - {self.name}'
+        return f'{self.location} - {self.name}'
 
     
 class LocationMonthData(models.Model):
@@ -76,21 +69,21 @@ class LocationMonthData(models.Model):
         ordering = ['name', 'month']
 
     def __str__(self):
-        return f'{dict(self.LOCATIONS_ENUM)[self.location]} - {self.name} - {self.month}'
+        return f'{self.location} - {self.name} - {self.month}'
 
 
 class GeoData(models.Model):
     location = models.CharField('location', max_length=20)
     name = models.CharField('name', max_length=100)
-    area = models.FloatField('area', blank=True)
-    perimeter = models.FloatField('perimeter', blank=True)
-    hectares = models.FloatField('hectares', blank=True)
+    area = models.FloatField('area', null=True)
+    perimeter = models.FloatField('perimeter', null=True)
+    hectares = models.FloatField('hectares', null=True)
     geometry = models.JSONField('geometry')
 
     class Meta:
-        verbose_name = 'location month data'
-        verbose_name_plural = 'locations month data'
+        verbose_name = 'location geometry data'
+        verbose_name_plural = 'locations geometry data'
         ordering = ['name']
 
     def __str__(self):
-        return f'{dict(self.LOCATIONS_ENUM)[self.location]} - {self.name}'
+        return f'{self.location} - {self.name}'

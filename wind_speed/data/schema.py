@@ -38,16 +38,14 @@ class GeoDataType(DjangoObjectType):
 
 
 class Query(ObjectType):
-    allWind = List(WindType, offset=Int(), limit=Int())
+    allWind = List(WindType)
     generalData = List(GeneralDataType)
     locationData = List(LocationDataType, location=String(), name=String())
     locationMonthData = List(LocationMonthDataType, location=String(), name=String(), month=Int())
     geoData = List(GeoDataType, location=String())
     
-    def resolve_allWind(self, info, offset=0, limit=1000):
-        if limit > 10000:
-            limit = 1000
-        data = DATA.get_ready_data_2023(offset, limit)[::-1]
+    def resolve_allWind(self, info):
+        data = DATA.DATA_DATES
         return data
 
     def resolve_generalData(self, info):
