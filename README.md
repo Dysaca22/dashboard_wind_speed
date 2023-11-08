@@ -11,3 +11,7 @@ Entrar al ambiente virtual (otro IDE con Python)
 > source venv/Scripts/activate
 Instalación de librerias necesarias
 > pip install -r requirements.txt
+Entrar a la carpeta del servidor
+> cd wind_speed/
+Iniciar el servidor
+> python manage.py runserver

@@ -30,7 +30,7 @@ models:
   dbt_project:
     cleansing:
       +materialized: ephemeral
-    cleansing:
+    queries:
       +materialized: view
     transform:
       +materialized: table

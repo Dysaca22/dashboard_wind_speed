@@ -50,4 +50,5 @@ SELECT DISTINCT
   DATETIME(date, TIME(hour, 0, 0)) AS date, 
   * EXCEPT(direction, date, hour)
 FROM temp4
+WHERE state NOT IN ("Bello", "Puerto Gaitan", "Ayapel")
 ORDER BY date, department

@@ -5,6 +5,6 @@ sources:
     database: wind-project-404023
     tables:
       - name: wind_speed
-        description: Tabla de datos de velocidad del viento tomada cada 10 minutos 
+        description: Tabla de datos de velocidad del viento tomada cada 10 minutos
       - name: wind_direction 
         description: Tabla de datos de dirección del viento tomada cada 10 minutos
