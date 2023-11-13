@@ -1,0 +1,10 @@
+django
+graphene_django
+graphene
+
+google-auth
+google-cloud-bigquery
+
+pandas
+db-dtypes
+plotly
