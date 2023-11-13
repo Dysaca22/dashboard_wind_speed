@@ -1,0 +1,129 @@
+.table-data {
+    overflow: auto;
+    background-color: white;
+    border-radius: 10px;
+    min-width: 300px;
+    min-height: 300px;
+    height: 300px;
+    flex: 1 1 0px;
+}
+
+.table-data table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-data thead th {
+    font-weight: 700;
+}
+
+.table-data tbody:before {
+    line-height: 1em; 
+    content: "\200C"; 
+    display: block;
+}
+
+.table-data th {
+    font-weight: 100;
+    padding: 5px 5px;
+}
+
+.table-data thead th {
+    background-color: white;
+    padding: 10px 5px;
+    position: sticky;
+    top: 0;
+}
+
+.table-data thead th:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.table-data thead th:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.rose-graph {
+    min-height: 400px;
+    width: 100%;
+    height: 100%;
+    flex: 5 1 0px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2px;
+}
+
+.turbine-image {
+    flex: 2 1 0px;
+    height: 400px;
+}
+
+.table-min-max {
+    overflow: auto;
+    min-width: 300px;
+    min-height: 560px;
+    height: 560px;
+    flex: 2 1 0px;
+}
+
+.table-min-max table {
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.table-min-max thead th {
+    font-weight: 700;
+}
+
+.table-min-max tbody:before {
+    line-height: 1em; 
+    content: "\200C"; 
+    display: block;
+}
+
+.table-min-max th {
+    font-weight: 100;
+    padding: 5px 5px;
+}
+
+.table-min-max thead th {
+    background-color: white;
+    padding: 10px 5px;
+    position: sticky;
+    top: 0;
+}
+
+.table-min-max thead th:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.table-min-max thead th:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.map-graph {
+    min-width: 500px;
+    min-height: 560px;
+    width: 100%;
+    height: 100%;
+    flex: 3 1 0px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2px;
+}
+
+.bar-graph {
+    min-height: 400px;
+    width: 100%;
+    height: 100%;
+    flex: 1 1 0px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2px;
+}

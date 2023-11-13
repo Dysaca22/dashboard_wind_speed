@@ -18,8 +18,9 @@ WITH temp1 AS (
   SELECT
     speed, date, hour, code,
     CASE
-      WHEN department = 'Archipielago De San Andres, Providencia Y Santa Catalina' THEN 'Archipielago De San Andres Providencia Y Santa Catalina'
-      WHEN department = 'San Andres Providencia' THEN 'Archipielago De San Andres Providencia Y Santa Catalina'
+      WHEN department = 'Archipielago De San Andres, Providencia Y Santa Catalina' THEN 'San Andres'
+      WHEN department = 'San Andres Providencia' THEN 'San Andres'
+      WHEN department = 'Archipielago De San Andres Providencia Y Santa Catalina' THEN 'San Andres'
       WHEN department = 'Bogota D.C.' THEN 'Bogota D.C'
       WHEN department = 'Bogota' THEN 'Bogota D.C'
       ELSE department
@@ -36,7 +37,7 @@ WITH temp1 AS (
     CASE
       WHEN UPPER(department) IN ('AMAZONAS', 'CAQUETA', 'GUAINIA', 'GUAVIARE', 'PUTUMAYO', 'VAUPES') THEN 'Amazonica'
       WHEN UPPER(department) IN ('ANTIOQUIA', 'BOGOTA D.C', 'SANTAFE DE BOGOTA D.C', 'BOYACA', 'CALDAS', 'CUNDINAMARCA', 'HUILA', 'NORTE DE SANTANDER', 'QUINDIO', 'RISARALDA', 'SANTANDER', 'TOLIMA') THEN 'Andina'
-      WHEN UPPER(department) IN ('ARCHIPIELAGO DE SAN ANDRES PROVIDENCIA Y SANTA CATALINA', 'ATLANTICO', 'BOLIVAR', 'CESAR', 'CORDOBA', 'LA GUAJIRA', 'MAGDALENA', 'SUCRE') THEN 'Caribe'
+      WHEN UPPER(department) IN ('SAN ANDRES', 'ATLANTICO', 'BOLIVAR', 'CESAR', 'CORDOBA', 'LA GUAJIRA', 'MAGDALENA', 'SUCRE') THEN 'Caribe'
       WHEN UPPER(department) IN ('CAUCA', 'CHOCO', 'NARINO', 'VALLE DEL CAUCA') THEN 'Pacifico'
       WHEN UPPER(department) IN ('ARAUCA', 'CASANARE', 'META', 'VICHADA') THEN 'Orinoquia'
       ELSE NULL -- Casos no mapeados
@@ -50,5 +51,5 @@ SELECT DISTINCT
   DATETIME(date, TIME(hour, 0, 0)) AS date, 
   * EXCEPT(speed, date, hour)
 FROM temp4
-WHERE state NOT IN ("Bello", "Puerto Gaitan", "Ayapel") AND speed > 0
+WHERE state NOT IN ("Bello", "Puerto Gaitan", "Ayapel", "Pereira", "Purace (Coconuco)") AND speed > 0
 ORDER BY date, department

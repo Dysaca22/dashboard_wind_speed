@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block style %}
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a class="inicio" href="{% url 'home' %}"><button><ion-icon
+                        name="speedometer-sharp"></ion-icon>Inicio</button></a>
+            <a href="{% url 'service:location-data' tipo='region' %}"><button><ion-icon
+                        name="globe-outline"></ion-icon>Regiones</button></a>
+            <a href="{% url 'service:location-data' tipo='department' %}"><button><ion-icon
+                        name="navigate-circle-outline"></ion-icon>Departamentos</button></a>
+            <a href="{% url 'service:location-data' tipo='state' %}"><button><ion-icon
+                        name="location-outline"></ion-icon>Municipios</button></a>
+            <a href="{% url 'service:location-month-data' tipo='region' %}"><button><ion-icon
+                        name="calendar-outline"></ion-icon>Regiones por mes</button></a>
+            <a href="{% url 'service:location-month-data' tipo='department' %}"><button><ion-icon
+                        name="timer-outline"></ion-icon>Departamentos por mes</button></a>
+            <a href="https://github.com/Dysaca22/dashboard_wind_speed" target="_blank"><button><ion-icon
+                        name="logo-github"></ion-icon>Github</button></a>
+            <a href="{% static 'un nuevo enfoque de optimizacion metaheuristica_ aplicacion en granjas eolicas.pdf' %}"
+                download><button><ion-icon name="arrow-down-circle-sharp"></ion-icon>PDF proyecto</button></a>
+        </nav>
+    </header>
+    <div></div>
+    <section>
+        <div class="content-bar">
+            <div class="search">
+                <button class="search-button"><ion-icon name="search-sharp"></ion-icon></button>
+                <input class="search-input" type="text" placeholder="Búsqueda por ubicación especifica" list="names">
+                <datalist id="names">
+                    {% for name in names %}
+                        <option value="{{ name }}">
+                    {% endfor %}
+                </datalist>
+            </div>
+            <div class="logo"><img src="{% static 'img/Logo uninorte.png' %}" alt="Logo Uninorte"></div>
+        </div>
+        <article>
+            {% block content %}
+            {% endblock %}
+        </article>
+    </section>
+</body>
+
+</html>

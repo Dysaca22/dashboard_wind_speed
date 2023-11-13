@@ -9,5 +9,5 @@ urlpatterns = [
     path('', GeneralDataView.as_view(), name='home'),
     path("admin/", admin.site.urls),
     path("graphql", GraphQLView.as_view(graphiql=True, schema=schema)),
-    path('service/', include(('service.urls', 'service'), namespace='service')),
+    path('', include(('service.urls', 'service'), namespace='service')),
 ]
