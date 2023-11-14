@@ -1,9 +1,11 @@
 from plotly.express import bar, bar_polar, choropleth_mapbox
 from plotly.express.colors import sequential
-from pandas import DataFrame, to_datetime, concat
+from pandas import DataFrame
 from django.conf import settings
 from plotly.offline import plot
 import json, os
+
+from wind_speed import vars
 
 
 def df_to_geojson(df):
@@ -43,7 +45,47 @@ def generate_hour_speed_graph(data, name):
         df, 
         x='HORA', 
         y=['MEDIA', 'MEDIANA'], 
-        barmode = 'group'
+        barmode = 'group',
+        color_discrete_map={
+            'MEDIA': '#D593C3',
+            'MEDIANA': '#A37FCC'
+        }
+    )
+    fig.update_layout(
+        font = dict(
+            family = "Merriweather",
+            size = 15
+        ),
+        legend = dict(
+            title = None, 
+            orientation = "h", 
+            y = 1, 
+            yanchor = "bottom", 
+            x = 0.5, 
+            xanchor = "center"
+        ),
+        yaxis_title="VELOCIDAD (m/s)",
+        margin=dict(l=5, r=5, b=5, t=10)
+    )
+    plot(fig, filename=path, auto_open=False)
+    return f'graphs/{name}.html'
+
+def generate_month_speed_graph(data, name):
+    path = f'{settings.GRAPHS}/{name}.html'
+    if os.path.exists(path):
+        return f'graphs/{name}.html'
+
+    df = DataFrame(data)
+    df.rename(columns={'month': 'MES', 'avgSpeed': 'MEDIA', 'medSpeed': 'MEDIANA'}, inplace=True)
+    fig = bar(
+        df, 
+        x='MES', 
+        y=['MEDIA', 'MEDIANA'], 
+        barmode = 'group',
+        color_discrete_map={
+            'MEDIA': '#D593C3',
+            'MEDIANA': '#A37FCC'
+        }
     )
     fig.update_layout(
             font = dict(
@@ -58,13 +100,13 @@ def generate_hour_speed_graph(data, name):
                 x = 0.5, 
                 xanchor = "center"
             ),
-            yaxis_title="VELOCIDAD",
+            yaxis_title="VELOCIDAD (m/s)",
             margin=dict(l=5, r=5, b=5, t=10)
         )
-    plotly_url = plot(fig, filename=path, auto_open=False)
+    plot(fig, filename=path, auto_open=False)
     return f'graphs/{name}.html'
 
-def generate_rose_diagram(DIRECTIONS, location, data, name):
+def generate_rose_diagram(DIRECTIONS, data, name):
     path = f'{settings.GRAPHS}/{name}.html'
     if os.path.exists(path):
         return f'graphs/{name}.html'
@@ -73,10 +115,10 @@ def generate_rose_diagram(DIRECTIONS, location, data, name):
     data += [{'name': '', 'medianSpeed': 0, 'medianDirection': d} for d in DIRECTIONS]
     data = [tuple for x in DIRECTIONS for tuple in data if tuple['medianDirection'] == x]
     df = DataFrame(data)
-    df.rename(columns={'name': 'Nombre', 'medianSpeed': 'Velocidad', 'medianDirection': 'Dirección'}, inplace=True)        
+    df.rename(columns={'name': 'Nombre', 'medianSpeed': 'Velocidad (m/s)', 'medianDirection': 'Dirección'}, inplace=True)        
     fig = bar_polar(
         df, 
-        r='Velocidad', 
+        r='Velocidad (m/s)', 
         theta='Dirección', 
         color='Nombre', 
         color_discrete_sequence=sequential.Plasma_r
@@ -92,24 +134,24 @@ def generate_rose_diagram(DIRECTIONS, location, data, name):
             ),
             margin=dict(l=20, r=20, b=20, t=20)
         )
-    plotly_url = plot(fig, filename=path, auto_open=False)
+    plot(fig, filename=path, auto_open=False)
     return f'graphs/{name}.html'
 
-def generate_rose_month_diagram(DIRECTIONS, MONTH, location, data, name):
+def generate_rose_month_diagram(DIRECTIONS, data, name):
     path = f'{settings.GRAPHS}/{name}.html'
     if os.path.exists(path):
         return f'graphs/{name}.html'
 
-    data = [*map(lambda x: {'name': x['name'], 'month': MONTH[x['month']], 'medianSpeed': x['medianSpeed'], 'medianDirection': DIRECTIONS[(int((x['medianDirection']/22.5) + .5) % 16)]}, data)]
+    data = [*map(lambda x: {'name': x['name'], 'month': x['month'], 'medianSpeed': x['medianSpeed'], 'medianDirection': DIRECTIONS[(int((x['medianDirection']/22.5) + .5) % 16)]}, data)]
     data += [{'name': '', 'month': '', 'medianSpeed': 0, 'medianDirection': d} for d in DIRECTIONS]
     data = [tuple for x in DIRECTIONS for tuple in data if tuple['medianDirection'] == x]
     df = DataFrame(data)
-    df.rename(columns={'name': 'Nombre', 'medianSpeed': 'Velocidad', 'medianDirection': 'Dirección', 'month': 'Mes'}, inplace=True)        
+    df.rename(columns={'name': 'Nombre', 'medianSpeed': 'Velocidad (m/s)', 'medianDirection': 'Dirección', 'month': 'Mes'}, inplace=True)        
     df['id'] = df['Nombre'] + ' - ' + df['Mes']
     df = df.sort_values(by='id')
     fig = bar_polar(
         df, 
-        r='Velocidad', 
+        r='Velocidad (m/s)', 
         theta='Dirección', 
         color='id', 
         color_discrete_sequence=sequential.Plasma_r
@@ -125,7 +167,7 @@ def generate_rose_month_diagram(DIRECTIONS, MONTH, location, data, name):
             ),
             margin=dict(l=20, r=20, b=20, t=20)
         )
-    plotly_url = plot(fig, filename=path, auto_open=False)
+    plot(fig, filename=path, auto_open=False)
     return f'graphs/{name}.html'
 
 def generate_map_graph(geo_data, data, name):
@@ -149,7 +191,7 @@ def generate_map_graph(geo_data, data, name):
         zoom = 4.4,
         center = {"lat": 4.0, "lon": -73.0},
         opacity=  0.5,
-        labels = {'medianSpeed': 'VELOCIDAD'}
+        labels = {'medianSpeed': 'VELOCIDAD (m/s)'}
     )
     fig.update_layout(
         font = dict(
@@ -158,7 +200,7 @@ def generate_map_graph(geo_data, data, name):
         ),
         margin=dict(l=5, r=5, b=5, t=10)
     )
-    plotly_url = plot(fig, filename=path, auto_open=False)
+    plot(fig, filename=path, auto_open=False)
     return f'graphs/{name}.html'
 
 def generate_location_speed_graph(data, location, name):
@@ -175,7 +217,7 @@ def generate_location_speed_graph(data, location, name):
         barmode = 'group',
         color_discrete_map={
             'MEDIA': '#D593C3',
-            'MEDIANA': '#A37FCC',
+            'MEDIANA': '#A37FCC'
         }
     )
     fig.update_layout(
@@ -195,8 +237,43 @@ def generate_location_speed_graph(data, location, name):
             x = 0.5, 
             xanchor = "center"
         ),
-        yaxis_title="VELOCIDAD",
+        yaxis_title="VELOCIDAD (m/s)",
         margin=dict(l=5, r=5, b=5, t=10)
     )
-    plotly_url = plot(fig, filename=path, auto_open=False)
+    plot(fig, filename=path, auto_open=False)
     return f'graphs/{name}.html'
+
+def generate_month_map_graph(geo_data, data, name):
+    for month in [*vars.MONTH.values()]:
+        path = f'{settings.GRAPHS}/{name}{month}.html'
+        if os.path.exists(path):
+            return f'graphs/{name}'
+
+        geo_json = df_to_geojson(geo_data)
+        df = DataFrame(data)
+        df.where(df['month'] == month, inplace=True)
+        df['name'] = df['name'].str.capitalize()
+        df.rename(columns={'name': 'Nombre'}, inplace=True)
+        fig = choropleth_mapbox(
+            df, 
+            geojson = geo_json, 
+            locations = 'Nombre',
+            featureidkey = 'properties.name',
+            color = 'medianSpeed',
+            color_continuous_scale='Plasma',
+            range_color = (df['medianSpeed'].min(), df['medianSpeed'].max()),
+            mapbox_style = "carto-positron",
+            zoom = 4.4,
+            center = {"lat": 4.0, "lon": -73.0},
+            opacity=  0.5,
+            labels = {'medianSpeed': 'VELOCIDAD (m/s)'}
+        )
+        fig.update_layout(
+            font = dict(
+                family = "Merriweather",
+                size = 15
+            ),
+            margin=dict(l=5, r=5, b=5, t=10)
+        )
+        plot(fig, filename=path, auto_open=False)
+    return f'graphs/{name}'

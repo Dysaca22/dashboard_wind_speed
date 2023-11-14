@@ -1,0 +1,222 @@
+#windmill-loader .container {
+    position: relative;
+}
+
+#windmill-loader .windmill {
+    position: relative;
+    margin-left: 70px;
+}
+
+#windmill-loader .line {
+    position: absolute;
+    width: 300px;
+    height: 5px;
+    border-radius: 10px;
+    background-color: #333;
+    left: -150px;
+    top: 100px;
+    z-index: 1;
+}
+
+#windmill-loader .line:before {
+    content: "";
+    position: absolute;
+    background-color: #6a994e;
+    width: 100px;
+    height: 50px;
+    border-radius: 50px 50px 0 0;
+    top: -50px;
+    left: 50px;
+    box-shadow: 100px 0 #a7c957;
+}
+
+#windmill-loader .line:after {
+    content: "";
+    position: absolute;
+    background-color: #6a994e;
+    width: 50px;
+    height: 25px;
+    border-radius: 50px 50px 0 0;
+    top: -25px;
+    left: 10px;
+    box-shadow: 50px 0 #a7c957, 105px 0 #6a994e, 195px 0 #6a994e, 225px 0 #a7c957;
+}
+
+#windmill-loader .mill {
+    position: absolute;
+    border-bottom: 130px solid #333;
+    border-right: 25px solid transparent;
+    border-left: 25px solid transparent;
+    width: 80px;
+    height: 0;
+    top: -28px;
+    left: -60px;
+    z-index: 2;
+}
+
+#windmill-loader .mill:before {
+    position: absolute;
+    content: "";
+    border-bottom: 120px solid #ab3428;
+    border-right: 22px solid transparent;
+    border-left: 22px solid transparent;
+    width: 70px;
+    height: 0;
+    top: 7px;
+    left: -16.5px;
+}
+
+#windmill-loader .mill:after {
+    position: absolute;
+    content: "";
+    background-color: #333;
+    width: 20px;
+    height: 5px;
+    border-radius: 10px;
+    left: -2px;
+    top: 20px;
+    box-shadow: 20px 40px #333, -10px 80px #333, 65px 5px #333, 70px 20px #333, 50px 80px #333, 55px 90px #333, 15px 95px #333, 10px 30px #333;
+}
+
+#windmill-loader .door {
+    position: absolute;
+    background-color: #621708;
+    width: 25px;
+    height: 40px;
+    border-radius: 30px 30px 0 0;
+    border: 5px solid #333;
+    box-shadow: inset 1px 7px rgba(0, 0, 0, 0.2);
+    top: 55px;
+    left: -10px;
+    z-index: 3;
+}
+
+#windmill-loader .door:before {
+    position: absolute;
+    content: "";
+    border-bottom: 65px solid #333;
+    border-right: 65px solid transparent;
+    border-left: 65px solid transparent;
+    height: 0;
+    width: 0;
+    top: -145px;
+    left: -55px;
+}
+
+#windmill-loader .door:after {
+    position: absolute;
+    content: "";
+    border-bottom: 50px solid #2d728f;
+    border-right: 50px solid transparent;
+    border-left: 50px solid transparent;
+    height: 0;
+    width: 0;
+    top: -136px;
+    left: -40px;
+}
+
+#windmill-loader .fan {
+    position: absolute;
+    background-color: #333;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    left: -7px;
+    top: -55px;
+    z-index: 4;
+    animation: spin 3s infinite linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#windmill-loader .wingOne,
+#windmill-loader .wingTwo,
+#windmill-loader .wingThree,
+#windmill-loader .wingFour {
+    position: absolute;
+    width: 5px;
+    border: 5px solid #333;
+    height: 25px;
+    background-color: #e6e6ea;
+    border-radius: 10px;
+}
+
+#windmill-loader .wingOne:before,
+#windmill-loader .wingTwo:before,
+#windmill-loader .wingThree:before,
+#windmill-loader .wingFour:before {
+    position: absolute;
+    content: "";
+    background-color: #3b8ea5;
+    box-shadow: inset -5px 0 #f5ee9e;
+    border: 5px solid #333;
+    width: 15px;
+    height: 65px;
+    top: 17px;
+    left: -10px;
+}
+
+#windmill-loader .wingOne {
+    left: 5px;
+    top: 15px;
+}
+
+#windmill-loader .wingTwo {
+    transform: rotate(90deg);
+    top: -5px;
+    left: -15px;
+}
+
+#windmill-loader .wingThree {
+    transform: rotate(-90deg);
+    top: -5px;
+    left: 25px;
+}
+
+#windmill-loader .wingFour {
+    transform: rotate(180deg);
+    top: -25px;
+    left: 5px;
+}
+
+#windmill-loader .clouds {
+    position: absolute;
+    width: 50px;
+    height: 15px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: -1;
+    top: -120px;
+    box-shadow: -120px 40px rgba(255, 255, 255, 0.5), 80px 80px rgba(255, 255, 255, 0.5);
+    animation: move 10s linear infinite;
+}
+
+@keyframes move {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-30px);
+    }
+
+    50% {
+        transform: translateX(0);
+    }
+
+    75% {
+        transform: translateX(30px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}

@@ -20,6 +20,8 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dots-loader.css' %}">
+    <link rel="stylesheet" href="{% static 'css/windmill-loader.css' %}">
     {% block style %}
     {% endblock %}
 </head>
@@ -27,34 +29,45 @@
 <body>
     <header>
         <nav>
-            <a class="inicio" href="{% url 'home' %}"><button><ion-icon
-                        name="speedometer-sharp"></ion-icon>Inicio</button></a>
-            <a href="{% url 'service:location-data' tipo='region' %}"><button><ion-icon
-                        name="globe-outline"></ion-icon>Regiones</button></a>
-            <a href="{% url 'service:location-data' tipo='department' %}"><button><ion-icon
-                        name="navigate-circle-outline"></ion-icon>Departamentos</button></a>
-            <a href="{% url 'service:location-data' tipo='state' %}"><button><ion-icon
-                        name="location-outline"></ion-icon>Municipios</button></a>
-            <a href="{% url 'service:location-month-data' tipo='region' %}"><button><ion-icon
-                        name="calendar-outline"></ion-icon>Regiones por mes</button></a>
-            <a href="{% url 'service:location-month-data' tipo='department' %}"><button><ion-icon
-                        name="timer-outline"></ion-icon>Departamentos por mes</button></a>
-            <a href="https://github.com/Dysaca22/dashboard_wind_speed" target="_blank"><button><ion-icon
-                        name="logo-github"></ion-icon>Github</button></a>
+            <a class="inicio" href="{% url 'home' %}"><button>
+                    <ion-icon name="speedometer-sharp"></ion-icon>Inicio
+                </button></a>
+            <a href="{% url 'service:location-data' tipo='region' %}"><button>
+                    <ion-icon name="globe-outline"></ion-icon>Regiones
+                </button></a>
+            <a href="{% url 'service:location-data' tipo='department' %}"><button>
+                    <ion-icon name="navigate-circle-outline"></ion-icon>Departamentos
+                </button></a>
+            <a href="{% url 'service:location-data' tipo='state' %}"><button>
+                    <ion-icon name="location-outline"></ion-icon>Municipios
+                </button></a>
+            <a href="{% url 'service:location-month-data' tipo='region' %}"><button>
+                    <ion-icon name="calendar-outline"></ion-icon>Regiones por mes
+                </button></a>
+            <a href="{% url 'service:location-month-data' tipo='department' %}"><button>
+                    <ion-icon name="timer-outline"></ion-icon>Departamentos por mes
+                </button></a>
+            <a href="https://github.com/Dysaca22/dashboard_wind_speed" target="_blank"><button>
+                    <ion-icon name="logo-github"></ion-icon>Github
+                </button></a>
             <a href="{% static 'un nuevo enfoque de optimizacion metaheuristica_ aplicacion en granjas eolicas.pdf' %}"
-                download><button><ion-icon name="arrow-down-circle-sharp"></ion-icon>PDF proyecto</button></a>
+                download><button>
+                    <ion-icon name="arrow-down-circle-sharp"></ion-icon>PDF proyecto
+                </button></a>
         </nav>
     </header>
     <div></div>
     <section>
         <div class="content-bar">
             <div class="search">
-                <button class="search-button"><ion-icon name="search-sharp"></ion-icon></button>
+                <button class="search-button">
+                    <ion-icon name="search-sharp"></ion-icon>
+                </button>
                 <input class="search-input" type="text" placeholder="Búsqueda por ubicación especifica" list="names">
                 <datalist id="names">
                     {% for name in names %}
-                        <option value="{{ name }}">
-                    {% endfor %}
+                    <option value="{{ name }}">
+                        {% endfor %}
                 </datalist>
             </div>
             <div class="logo"><img src="{% static 'img/Logo uninorte.png' %}" alt="Logo Uninorte"></div>
@@ -63,7 +76,42 @@
             {% block content %}
             {% endblock %}
         </article>
+        <div class="loader">
+            <div id="windmill-loader">
+                <div class="container">
+                    <div class="windmill">
+                        <div class="line"></div>
+                        <div class="mill"></div>
+                        <div class="door"></div>
+                        <div class="fan">
+                            <div class="wingOne"></div>
+                            <div class="wingTwo"></div>
+                            <div class="wingThree"></div>
+                            <div class="wingFour"></div>
+                        </div>
+                        <div class="clouds"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="word-loader">
+                Loading <div class="lds-ellipsis">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
     </section>
+    <script>
+        window.addEventListener('beforeunload', function (event) {
+            document.querySelector('article').style.display = 'none';
+            document.querySelector('.loader').style.display = 'flex';
+        });
+        document.querySelector('.loader').style.display = 'none';
+    </script>
+    {% block scripts %}
+
+    {% endblock %}
 </body>
 
 </html>

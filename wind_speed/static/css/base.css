@@ -1,6 +1,9 @@
 * {
     margin: 0;
     padding: 0;
+
+    font-family: 'Merriweather', serif;
+    font-weight: 200;
 }
 
 html,
@@ -195,4 +198,23 @@ thead th:first-child {
 thead th:last-child {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+}
+
+.loader {
+    margin: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader #word-loader {
+    margin-top: 120px;
+    padding-right: 34px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: baseline;
+    align-items: center;
+    font-size: 30px;
+    font-weight: 600;
 }

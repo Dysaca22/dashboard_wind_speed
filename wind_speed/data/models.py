@@ -1,4 +1,3 @@
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -14,6 +13,20 @@ class HourSpeed(models.Model):
 
     def __str__(self):
         return f'Wind speed in {self.hour}'
+
+
+class MonthSpeed(models.Model):
+    month = models.CharField('month', max_length=20)
+    avgSpeed = models.FloatField('average speed')
+    medSpeed = models.FloatField('median speed')
+
+    class Meta:
+        verbose_name = 'month speed'
+        verbose_name_plural = 'months speed'
+        ordering = ['month']
+
+    def __str__(self):
+        return f'Wind speed in {self.month}'
 
     
 class GeneralData(models.Model):
@@ -54,7 +67,7 @@ class LocationData(models.Model):
 class LocationMonthData(models.Model):
     location = models.CharField('location', max_length=20)
     name = models.CharField('name', max_length=100)
-    month = models.IntegerField('month', validators=[MaxValueValidator(12), MinValueValidator(1)])
+    month = models.CharField('month', max_length=20)
     avgSpeed = models.FloatField('average speed')
     medianSpeed = models.FloatField('median speed')
     devSpeed = models.FloatField('standard deviation speed')

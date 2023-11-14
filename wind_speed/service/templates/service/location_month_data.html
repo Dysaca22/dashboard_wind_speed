@@ -15,21 +15,21 @@
                 <tr>
                     <th>{{ name }}</th>
                     <th>Mes</th>
-                    <th>Velocidad media</th>
-                    <th>Velocidad mediana</th>
-                    <th>Des. estandar velocidad</th>
-                    <th>Dirección media</th>
-                    <th>Dirección mediana</th>
-                    <th>Des. estandar dirección</th>
+                    <th>Velocidad media (m/s)</th>
+                    <th>Velocidad mediana (m/s)</th>
+                    <th>Des. estandar velocidad (m/s)</th>
+                    <th>Dirección media (grados)</th>
+                    <th>Dirección mediana (grados)</th>
+                    <th>Des. estandar dirección (grados)</th>
                 </tr>
             </thead>
             <tbody>
                 {% for row in table_data %}
-                    <tr>
-                        {% for val in row %}
-                            <th>{{ val }}</th>
-                        {% endfor %}
-                    </tr>
+                <tr>
+                    {% for val in row %}
+                    <th>{{ val }}</th>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
@@ -38,7 +38,7 @@
 <div class="row">
     <div class="rose-graph">
         <iframe width="100%" height="100%" frameborder="0" seamless="seamless" scrolling="no"
-        src="{% static rose_graph_url %}"></iframe>
+            src="{% static rose_graph_url %}"></iframe>
     </div>
     <div class="turbine-image">
         <img src="{% static 'img/turbine-plan.png' %}" alt="Turbina eólica">
@@ -51,24 +51,44 @@
                 <tr>
                     <th>{{ name }}</th>
                     <th>Mes</th>
-                    <th>Velocidad mínima</th>
-                    <th>Velocidad máxima</th>
+                    <th>Velocidad mínima (m/s)</th>
+                    <th>Velocidad máxima (m/s)</th>
                 </tr>
             </thead>
             <tbody>
                 {% for row in table_min_max %}
-                    <tr>
-                        {% for value in row %}
-                            <th>{{ value }}</th>
-                        {% endfor %}
-                    </tr>
+                <tr>
+                    {% for value in row %}
+                    <th>{{ value }}</th>
+                    {% endfor %}
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
     <div class="map-graph">
-        <iframe width="100%" height="100%" frameborder="0" seamless="seamless" scrolling="no"
-            src="{% static map_graph_url %}"></iframe>
+        <select name="months" id="months-select" onchange="change_map(this)">
+            {% for month in months %}
+            <option value="{{ month }}">{{ month }}</option>
+            {% endfor %}
+        </select>
+        {% for month in months %}
+            <iframe   iframe width="100%" height="100%" frameborder="0" seamless="seamless" scrolling="no" name="map_{{ month }}"
+            src="{% static map_graph_url|add:month|add:'.html' %}" style="display: none;"></iframe>
+        {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function change_map(e) {
+        var month = e.value;
+        document.querySelectorAll(`iframe[name*="map_"]`).forEach(element => {
+            element.style.display = 'none';
+        });
+        document.querySelector(`iframe[name="map_${month}"]`).style.display = 'block';
+    }
+    document.querySelector(`iframe[name="map_Enero"]`).style.display = 'block';
+</script>
 {% endblock %}

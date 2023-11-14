@@ -1,3 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Merriweather', serif;
+    font-weight: 200;
+}
+
 .table-data {
     overflow: auto;
     background-color: white;
@@ -116,6 +124,7 @@
     background-color: white;
     border-radius: 10px;
     padding: 2px;
+    position: relative;
 }
 
 .bar-graph {
@@ -126,4 +135,15 @@
     background-color: white;
     border-radius: 10px;
     padding: 2px;
+}
+
+#months-select {
+    position: absolute;
+    top: 16px;
+    left: 13px;
+    background-color: #F4F4F4;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    padding: 5px 8px;
 }

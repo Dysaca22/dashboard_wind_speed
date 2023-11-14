@@ -3,7 +3,15 @@ from google.cloud import bigquery
 from django.conf import settings
 import os, json
 
-from .models import HourSpeed, GeneralData, LocationData, LocationMonthData, GeoData
+from wind_speed import vars
+from .models import (
+    HourSpeed, 
+    MonthSpeed,
+    GeneralData, 
+    LocationData, 
+    LocationMonthData, 
+    GeoData
+)
 
 
 class Data():
@@ -19,6 +27,7 @@ class Data():
         )
 
         self.HOUR_SPEED = self.get_hour_speed()
+        self.MONTH_SPEED = self.get_month_speed()
         self.GENERAL_DATA = self.set_general_data()
         self.LOCATION_DATA = self.set_location_data()
         self.LOCATION_MONTH_DATA = self.set_location_month_data()
@@ -39,6 +48,22 @@ class Data():
             ) for i, data in df_data.iterrows()
         ]
         return hour_speed
+
+    def get_month_speed(self):
+        sql = """
+            SELECT *
+            FROM `{}.month_speed`
+        """.format(self.DATASET)
+        df_data = self.client.query(sql).result().to_dataframe()
+
+        month_speed = [
+            MonthSpeed(
+                month = vars.MONTH[int(data['month'])],
+                avgSpeed = data['avgSpeed'],
+                medSpeed = data['medSpeed']
+            ) for i, data in df_data.iterrows()
+        ]
+        return month_speed
 
     def set_general_data(self):
         sql = """
@@ -100,7 +125,7 @@ class Data():
                 LocationMonthData(
                     location = loc,
                     name = data[loc],
-                    month = data['month'],
+                    month = vars.MONTH[int(data['month'])],
                     avgSpeed = data['avg_speed'],
                     medianSpeed = data['median_speed'],
                     devSpeed = data['dev_speed'],
