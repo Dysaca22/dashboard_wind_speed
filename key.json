@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "wind-project-404023",
+  "private_key_id": "2207a0c55c555762110b2a280d28e4268f91c92c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEugIBADANBgkqhkiG9w0BAQEFAASCBKQwggSgAgEAAoIBAQDEV+QCQE4Oj8lA\n824dlMKDOBcRdiPcjgpYhUKfIFlGo25zeTqHlFAWpFEck6ajEptdFCRZ0h95twIb\nWSMz197JvetF7YJ4IopZkNnBaQrcc3UWwBE8A59xtQRPAeo/7Asw/YMIZZ243hyr\nxrX1U9vcT5bkRgoO5oie6IIkh/kElZkAwI8gBp5Rck7qjU9Dhr/iGsyKyihVKJ67\nv7aiu12WRc6fN2aqhGIbmH1dpDTQqx84xUXbxl8+yKBwcYCHZGqnzg9x1+vrkdCm\naQiQSekFQgqhZ2V2qEW2KYLxZpx9xyhpLr2V6PcBrIB4j0Uwj+L1HUmCBVXltq2T\nJRboCaEfAgMBAAECggEAUs48d6SWJvcGKjHgLXKZLE0iEXexPSncfCPLip/SdwOj\nJ+knQZnPwxTOro4o15qX0oQVppoDM0p3BYCs44b1y0ChMo8uGKt8jLSV2ceK0JmS\n9qLPQe/HNWXh6M5GdGoA+ErakdaFU7u8/Mcj41DYJ0ybty9Au7MHSHmHtY9w+ri9\nAMHtf7WXmnEosscDRnfXGMpQUILTlTbevVTQR6gLmNAh2kCWrwPMcwx+pO1kqRd2\n40RN7PBiwlfCQ9YZBQ/HHWZphsacCAk9GVDeQkS4BoWGCug4VjuGKN/+YroN7iBK\nD7BLo1ZfqVSQaWTwcBME80ggagJxHHPbDXx31abNGQKBgQD1DzVy96kbzIlZs5Uh\n5A47BshumatGXsHXNSMENmg7JsPjoke2s8vOzlH0GOyRF3p6mDeJjy1seA/ARdoM\ni/Kv78YOAGRF9N0xVNeF7OpOyLmCNyXWWnP8T27GhK3xf1bZFPiGaLuNpJaPVBZ8\nUv6DLWbXqlTqZuuRPb+VT7dWOQKBgQDNG+d/Q/0ZAUPmtMsPn4uCpFHOPe4TO14Y\nur99MbAefJHPZuQEh8xU8QaE9SfOtq726gmU/3IjZnOgYvnYgvqBgoO6wyWbibAk\nknH0ICEtg//RprPqfsSrifOpxM329vPw8sMImJqUVCG9WWILB3vixXTmSzK9wyXn\nBblCr4fyFwKBgEBDRr7pVz1k+7e8MiV7CohMFQ972MBRZP+sfYxDQD4SwlfVXHz6\n1T1cOX2Lc63wvDud4yJ9m2nQakD/kFit8mxUsllFnQYDWmXvW71RDXivhoYxNAjs\nG3JU2jXQ4VRtEjdHGo0UtepE+P6JDIR5tyhrJYb0sePuLWQfDzh2eRtxAoGATOVb\nQvFAYDGDPWkmf/L2oMHuEX5SVU96lZbd15fbSXK2T6VpcvFef7HlGc+3Xt5KdjOD\n6CJkrjTowIaa2LsyI3/E1y32WXujV/K3Wij5h1DnhbgT16QzI4SSn2EzPpWTGxBI\nYl6kBVwNUinCghQKNBiHHRewLEiPWy9gJ0obk30CfwPT6ebKGg/6mYH556U+qqU7\nkBOlT12jPL1RivWpjRH9yYGbES6TIj6luBTZwgvO9a8NvnT8M0c8++S5XflOxv6N\noRWgqHJDnJCdiveuV/ilkS32pxzjk+ltpSc4UL0FfKApYzwwyFD2ZZYyA5hys5tP\neGIjIalLe8n6331nBdg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "service-account@wind-project-404023.iam.gserviceaccount.com",
+  "client_id": "117419167150940858286",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/service-account%40wind-project-404023.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
