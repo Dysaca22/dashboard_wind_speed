@@ -142,13 +142,11 @@ def generate_rose_month_diagram(DIRECTIONS, data, name):
     if os.path.exists(path):
         return f'graphs/{name}.html'
 
-    data = [*map(lambda x: {'name': x['name'], 'month': x['month'], 'medianSpeed': x['medianSpeed'], 'medianDirection': DIRECTIONS[(int((x['medianDirection']/22.5) + .5) % 16)]}, data)]
-    data += [{'name': '', 'month': '', 'medianSpeed': 0, 'medianDirection': d} for d in DIRECTIONS]
+    data = [*map(lambda x: {'id': f"{x['name']} - {x['month']}", 'medianSpeed': x['medianSpeed'], 'medianDirection': DIRECTIONS[(int((x['medianDirection']/22.5) + .5) % 16)]}, data)]
+    data += [{'id': '', 'medianSpeed': 0, 'medianDirection': d} for d in DIRECTIONS]
     data = [tuple for x in DIRECTIONS for tuple in data if tuple['medianDirection'] == x]
     df = DataFrame(data)
-    df.rename(columns={'name': 'Nombre', 'medianSpeed': 'Velocidad (m/s)', 'medianDirection': 'Dirección', 'month': 'Mes'}, inplace=True)        
-    df['id'] = df['Nombre'] + ' - ' + df['Mes']
-    df = df.sort_values(by='id')
+    df.rename(columns={'medianSpeed': 'Velocidad (m/s)', 'medianDirection': 'Dirección'}, inplace=True)        
     fig = bar_polar(
         df, 
         r='Velocidad (m/s)', 
@@ -163,7 +161,8 @@ def generate_rose_month_diagram(DIRECTIONS, data, name):
             ),
             legend = dict(
                 title = None,
-                orientation = "v"
+                orientation = "v",
+                traceorder='normal'
             ),
             margin=dict(l=20, r=20, b=20, t=20)
         )
