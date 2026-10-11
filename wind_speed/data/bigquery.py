@@ -1,4 +1,3 @@
-from google.oauth2 import service_account
 from google.cloud import bigquery
 from django.conf import settings
 import os, json
@@ -19,12 +18,8 @@ class Data():
         self.PROJECT = 'wind-project-404023'
         self.DATASET = 'project'
 
-        key = os.path.join(settings.BASE_DIR, 'static/key.json')
-        credential = service_account.Credentials.from_service_account_file(key)
-        self.client = bigquery.Client(
-            credentials = credential,
-            project = self.PROJECT
-        )
+        # Las credenciales salen de GOOGLE_APPLICATION_CREDENTIALS
+        self.client = bigquery.Client(project = self.PROJECT)
 
         self.HOUR_SPEED = self.get_hour_speed()
         self.MONTH_SPEED = self.get_month_speed()

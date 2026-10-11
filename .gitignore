@@ -3,3 +3,6 @@ dbt_project/target/
 dbt_project/dbt_packages/
 dbt_project/logs/
 wind_speed/static/graphs/*
+
+# Claves de cuentas de servicio
+key.json
